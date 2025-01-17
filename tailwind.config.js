@@ -14,6 +14,23 @@ export default {
     ],
     theme: {
         extend: {
+            keyframes: {
+                shimmer: {
+                    '100%': { transform: 'translateX(100%)' }
+                },
+                'gradient-rotate': {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' }
+                },
+                'gradient-rotate': {
+                    '0%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                    '100%': { backgroundPosition: '0% 50%' }
+                }
+            },
+            animation: {
+                'gradient-rotate': 'gradient-rotate 3s linear infinite'
+            }
         },
     },
     plugins: [],
