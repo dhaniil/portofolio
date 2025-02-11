@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\TagsInput;    
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 
@@ -41,6 +41,7 @@ class ProjectResource extends Resource
                     ->image()
                     ->directory('projects')
                     ->visibility('public')
+                    ->imageEditor(2)
                     ->required(),
                 TextInput::make('demo_url')
                     ->label('Demo URL')
@@ -49,19 +50,23 @@ class ProjectResource extends Resource
                 TextInput::make('repository_url')
                     ->label('Repository URL')
                     ->maxLength(255),
-                Select::make('technologies')
-                    ->multiple()
-                    ->options([
-                        'Frontend' => 'Frontend',
-                        'Backend' => 'Backend',
-                        'React' => 'React',
-                        'TypeScript' => 'TypeScript',
-                        'MongoDB' => 'MongoDB',
-                        'Laravel' => 'Laravel',
-                        'Tailwind' => 'Tailwind',
-                        'Node.js' => 'Node.js',
+                TagsInput::make('technologies')
+                    ->label('Technologies')
+                    ->placeholder('Type and press enter to add a tag')
+                    ->suggestions([
+                        'Frontend',
+                        'Backend',
+                        'React',
+                        'TypeScript',
+                        'MongoDB',
+                        'Laravel',
+                        'Tailwind',
+                        'Node.js',
                     ])
                     ->required()
+                    ->rules('array')
+
+                    ->separator(', ')
             ]);
     }
 

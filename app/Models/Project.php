@@ -22,4 +22,9 @@ class Project extends Model
         'technologies' => 'array'
     ];
 
+    public static function create(array $array)
+    {
+    }
+
+
 }

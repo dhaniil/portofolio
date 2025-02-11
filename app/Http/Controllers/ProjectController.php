@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Skills;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function store(Request $request)
     {
-        $projects = Project::all();
-        $skills = Skills::all();
-        return view('app', compact('projects', 'skills'));
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'technologies' => 'required|array',
+        ]);
+
+        Project::create([
+            'name' => $request->input('name'),
+            'technologies' => $request->input('technologies'),
+        ]);
+
     }
 
 

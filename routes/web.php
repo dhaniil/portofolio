@@ -4,10 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProjectController;
-
-
 
 Route::get('/', [SkillController::class, 'index'])->name('portfolio');
 // Route::get('/', [ProjectController::class, 'index'])->name('portofolio');
@@ -21,6 +18,3 @@ Route::get('/', [SkillController::class, 'index'])->name('portfolio');
    
 //     dd("Email Berhasil dikirim.");
 // });
-
-
-Route::post('/send-email', [EmailController::class, 'sendEmail']);

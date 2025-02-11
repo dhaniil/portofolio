@@ -6,7 +6,7 @@
                     Get in touch!
                 </h2>
 
-                <form class="space-y-6">
+                <form id="contactForm" class="space-y-6" onsubmit="sendEmail(event)">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium mb-2">Name</label>
@@ -24,7 +24,7 @@
 
                     <div>
                         <label class="block text-sm font-medium mb-2">Subject</label>
-                        <input type="text" 
+                        <input type="text"
                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 transition-colors"
                                placeholder="Message subject">
                     </div>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" 
+                        <button type="submit" id="submitBtn"
                                 class="w-full md:w-auto px-8 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-400 text-white font-medium hover:from-purple-700 hover:to-cyan-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 transition-all">
                             Send Message
                         </button>
@@ -47,3 +47,39 @@
         </div>
     </div>
 </div>
+
+<!-- Add this script at the bottom of your contact component -->
+<script>
+    (function() {
+        // Initialize EmailJS with your public key
+        emailjs.init("-iRwwUFq0236fizaG");
+    })();
+
+    function sendEmail(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        const templateParams = {
+            from_name: document.getElementById('name').value,
+            from_email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+
+        emailjs.send("service_lkr2r6a", "template_9keo4ms", templateParams)
+            .then(function(response) {
+                console.log("SUCCESS!", response.status, response.text);
+                alert("Message sent successfully!");
+                document.getElementById('contactForm').reset();
+            }, function(error) {
+                console.log("FAILED...", error);
+                alert("Failed to send message. Please try again.");
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+            });
+    }
+</script>

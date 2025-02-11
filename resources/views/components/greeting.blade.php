@@ -5,7 +5,7 @@
             <span class="font-normal text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">Welcome to my Website</span>
         </div>
         <div class="flex flex-row justify-center items-center gap-4 px-[1em]">
-            <div class="p-[1px] rounded-sm bg-[size:400%] bg-gradient-to-l from-purple-600 via-cyan-400 to-purple-600 animate-gradient-rotate">
+            <div class="p-[1px] rounded-sm bg-gradient-to-l from-indigo-400 via-sky-400 to-indigo-400">
                 <button 
                     onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' })"
                     class="min-w-36 text-lg text-white font-bold py-1 px-2 rounded-md bg-gray-800 hover:bg-gray-700 transition-colors"
@@ -13,7 +13,7 @@
                     Contact Me
                 </button>
             </div>
-            <div class="p-[1px] rounded-sm bg-[size:400%] shadow-lg bg-gradient-to-r from-purple-600 via-cyan-400 to-purple-600 animate-gradient-rotate">
+            <div class="p-[1px] rounded-sm shadow-lg bg-gradient-to-r from-indigo-400 via-sky-400 to-indigo-400">
                 <button 
                     onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' })"
                     class="min-w-36 text-lg text-white font-bold py-1 px-2 rounded-md bg-gray-800/95 hover:bg-gray-700/95 transition-colors"

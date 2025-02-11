@@ -1,8 +1,8 @@
-<div x-data="{ activeSection: 'home', isOpen: false }" 
+<div x-data="{ activeSection: 'home', isOpen: true }"
      class="fixed left-0 top-0 h-full flex items-center z-[100]">
-    
+
     <!-- Hamburger Button -->
-    <button @click="isOpen = !isOpen" 
+    <button @click="isOpen = !isOpen"
             class="fixed top-6 left-4 p-2 rounded-lg bg-gray-900/50 transition-transform duration-300">
         <div class="w-6 h-5 relative flex flex-col justify-between">
             <span class="w-full h-[2px] bg-white transform transition-all duration-300"
@@ -20,10 +20,10 @@
         <ul class="space-y-6 relative">
             <!-- Garis Putih Utama -->
             <div class="absolute left-2 top-0 bottom-0 w-[1px] bg-white/30"></div>
-            
+
             <template x-for="(section, index) in ['home', 'about', 'portfolio', 'contact']" :key="index">
                 <li class="relative">
-                    <a :href="`#${section}`" 
+                    <a :href="`#${section}`"
                        @click.prevent="
                            const el = document.getElementById(section === 'portfolio' ? 'content' : section);
                            el.scrollIntoView({ behavior: 'smooth' });
@@ -49,22 +49,37 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.snap-section');
-    
+    const observerOptions = {
+        root: null,
+        threshold: 0.5,
+        rootMargin: '-45% 0px -45% 0px'
+    };
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            if (entry.isIntersecting) {
                 const sectionId = entry.target.id;
                 const navElement = document.querySelector('[x-data]');
                 if (navElement && navElement.__x) {
                     navElement.__x.$data.activeSection = sectionId === 'content' ? 'portfolio' : sectionId;
+                    
+                    const newUrl = `${window.location.pathname}#${sectionId}`;
+                    window.history.replaceState(null, '', newUrl);
                 }
             }
         });
-    }, {
-        threshold: [0.5],
-        rootMargin: '-10% 0px -10% 0px'
-    });
+    }, observerOptions);
 
-    sections.forEach(section => observer.observe(section));
+    setTimeout(() => {
+        sections.forEach(section => observer.observe(section));
+        
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+            const navElement = document.querySelector('[x-data]');
+            if (navElement && navElement.__x) {
+                navElement.__x.$data.activeSection = hash === 'content' ? 'portfolio' : hash;
+            }
+        }
+    }, 100);
 });
 </script>
